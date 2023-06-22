@@ -1,12 +1,14 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import Script from "next/script"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
-import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
+import { AuthGuard } from "@/components/auth/AuthGuard"
+import { AuthProvider } from "@/context/auth"
 
 export const metadata: Metadata = {
   title: {
@@ -30,25 +32,25 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
+
   return (
-    <>
-      <html lang="en" suppressHydrationWarning>
-        <head />
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
-          )}
-        >
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
-              <div className="flex-1">{children}</div>
-            </div>
-            <TailwindIndicator />
-          </ThemeProvider>
-        </body>
-      </html>
-    </>
+    <html lang="en" suppressHydrationWarning>
+      <Script src="https://sdk.scdn.co/spotify-player.js" />
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="relative flex min-h-screen w-full flex-col">
+              <AuthProvider>
+                {children}
+              </AuthProvider>
+          </div>
+          <TailwindIndicator />
+        </ThemeProvider>
+      </body>
+    </html>
   )
 }
