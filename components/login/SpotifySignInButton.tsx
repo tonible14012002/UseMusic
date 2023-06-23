@@ -5,15 +5,22 @@ import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/constants/routes"
 import { signIn } from "next-auth/react"
 
 import Image from "next/image"
+import { useState } from "react"
 
 export const SpotifSignInButton = () => {
 
-    console.log({signIn})
+    const [ isLoading, setIsLoading ] = useState(false)
+
+    const handleSignIn = async () => {
+        setIsLoading(true)
+        await signIn("spotify", {callbackUrl: PRIVATE_ROUTES.HOME})
+        setIsLoading(false)
+    }
+
     return (
         <Button variant={"outline"} className="h-fit rounded-3xl p-8"
-            onClick={() => signIn("spotify", {
-                callbackUrl: PRIVATE_ROUTES.HOME
-            })}
+            onClick={handleSignIn}
+            disabled={isLoading}
         >
             <Image
                 alt=""

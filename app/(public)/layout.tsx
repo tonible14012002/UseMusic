@@ -1,14 +1,17 @@
 import "@/styles/globals.css"
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
 import { Metadata } from "next"
 import Script from "next/script"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
-import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
-import { AuthGuard } from "@/components/auth/AuthGuard"
 import { AuthProvider } from "@/context/auth"
+import { config } from '@fortawesome/fontawesome-svg-core'
+
+config.autoAddCss = false
 
 export const metadata: Metadata = {
   title: {
@@ -45,10 +48,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-screen w-full flex-col">
               <AuthProvider>
-                {children}
+                  {children}
               </AuthProvider>
           </div>
-          <TailwindIndicator />
         </ThemeProvider>
       </body>
     </html>

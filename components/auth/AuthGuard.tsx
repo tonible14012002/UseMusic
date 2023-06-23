@@ -1,14 +1,19 @@
-"use client"
-
 import { PropsWithChildren } from "react";
-import { SessionProvider } from "next-auth/react"
+import { PUBLIC_ROUTES } from "@/constants/routes";
+import { getServerAuthSession } from "@/utils/auth";
+import { redirect } from "next/navigation";
+import { LoginRedirectPage } from "./LoginRedirectPage";
 
+export const AuthGuard = async ({children}: PropsWithChildren<any>) => {
 
-export const AuthGuard = ({children}: PropsWithChildren) => {
+    const session = await getServerAuthSession()
+    await new Promise<string>(r => setTimeout(() => r(""), 1000))
 
-    return (
-        <SessionProvider>
-            {children}
-        </SessionProvider>
-    ) 
+    if (!session) {
+        return (
+            <LoginRedirectPage/>
+        )
+    }
+
+    return children
 }

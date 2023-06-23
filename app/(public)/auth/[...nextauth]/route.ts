@@ -2,7 +2,6 @@ import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/constants/routes"
 import NextAuth from "next-auth/next"
 import SpotifyProvider from "next-auth/providers/spotify"
 
-
 export const authOptions = {
     providers: [
         SpotifyProvider({

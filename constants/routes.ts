@@ -2,7 +2,7 @@
 export const PRIVATE_ROUTES = {
     HOME: "/", 
     NEW_USER: "/new",
-    SIGN_OUT:  "/signout",
+    SIGN_OUT:  "/login",
 }
 
 export const PUBLIC_ROUTES = {
