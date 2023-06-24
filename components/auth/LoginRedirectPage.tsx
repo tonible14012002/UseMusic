@@ -10,5 +10,9 @@ export const LoginRedirectPage  = ({children, ...rest}: PropsWithChildren) => {
         push(PUBLIC_ROUTES.LOGIN)
     }, [push])
 
-    return children
+    return (
+        <>
+            {children}
+        </>
+    )
 }
