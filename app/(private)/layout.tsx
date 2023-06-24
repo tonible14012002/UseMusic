@@ -53,6 +53,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TooltipProvider>
             <Suspense fallback={<AuthGuardSkeleton/>}>
+              {/* @ts-expect-error Server Component   */}
               <AuthGuard>
                 <AuthProvider>
                   <div className="relative flex min-h-screen w-full flex-col">

@@ -9,7 +9,7 @@ export const HomeView = async () => {
 
     const session = await getServerSession(authOptions)
 
-    const resp = await spotifyService.getRecommendationGenes(session.accessToken)
+    const resp = await spotifyService.getRecommendationGenes(session?.accessToken || "")
     if (resp.status === "error") {
         return <div className="ml-16 p-5">
             Try Again later

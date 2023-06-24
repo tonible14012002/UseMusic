@@ -1,6 +1,6 @@
 import { Client } from "@/lib/apis";
 import fetcher from "@/lib/fetcher";
-import { MusicGenes, RefreshTokenResponse } from "./types";
+import { MusicGenes, RefreshTokenResponse } from "@/types/spotify";
 
 class SpotifyServices extends Client {
     baseUrl = process.env.BASE_SPOTIFY_URL || ""

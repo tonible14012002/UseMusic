@@ -4,14 +4,17 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 export const useAuthSession = () => {
-    const { error, ...rest}: any = useSession()
+    const { data: session, ...rest} = useSession()
     const { push } = useRouter()
+
     useEffect(() => {
-        if (error === "RefreshAccessTokenError") {
+        if (session?.error === "RefreshAccessTokenError") {
             push(PUBLIC_ROUTES.LOGIN)
         }
-    }, [error, push])
+    }, [session, push])
+
     return {
+        session,
         ...rest
     }
 }

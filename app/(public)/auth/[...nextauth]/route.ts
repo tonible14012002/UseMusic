@@ -1,11 +1,11 @@
 import spotifyService from "@/api/spotify"
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/constants/routes"
+import { RefreshTokenResponse } from "@/types/spotify"
+import { AuthOptions } from "next-auth"
 import NextAuth from "next-auth/next"
 import SpotifyProvider from "next-auth/providers/spotify"
-import { RouteKind } from "next/dist/server/future/route-kind"
-import { cookies } from "next/headers"
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
     providers: [
         SpotifyProvider({
             clientId: process.env.SPOTIFY_ID || "79e66d37c7e341fda8b895883b01b0c5",
@@ -18,36 +18,51 @@ export const authOptions = {
         newUser: PRIVATE_ROUTES.NEW_USER
     },
     callbacks: {
-        async jwt({ token, account, user }: any) {
+      jwt: async ({token, user, account, profile}) => {
+        // user, account only be passed in after first login (each session)
+        if (account && user) {
+          // Run once after signin
+          return {
+            ...token,
+            profile,
+            accessToken: account?.access_token as string,
+            refreshToken: account?.refresh_token as string, 
+            accessTokenExpires: Date.now() + (account?.expires_at as number)* 1000
+          } 
+        }
 
+        if (Date.now() < (token.accessTokenExpires as number)) {
+          // token still valid
           return token
-            // if (account && user) { // inital signin
-            //   console.log("Just Logged in",{token, account, user})
-            //   return {
-            //     accessToken: account.access_token,
-            //     accessTokenExpires: Date.now() + account.expires_in * 1000,
-            //     refreshToken: account.refresh_token,
-            //     user
-            //   }
-            // }
+        }
 
-            // console.log({token, account, user})
+        // token expired
+        const resp = await spotifyService.refreshAccessToken(token.refreshToken as string)
 
-            // if(Date.now() < token.exp) {
-            //   return token
-            // }
+        if (resp.status === "ok") {
+          const data: RefreshTokenResponse = resp.data
 
-            // const resp = await spotifyService.refreshAccessToken(token.refreshToken)
-
-
-            return token
-          },
-          async session({ session, token, user }: any) {
-            // Send properties to the client, like an access_token from a provider.
-            // session.accessToken = token.accessToken
-            // session.user.id = token.id
-            return session
+          return {
+            ...token,
+            accessToken: data.access_token,
+            accessTokenExpires: Date.now() + data.expires_in * 1000
           }
+        }
+
+        return {
+          ...token, 
+          error: "RefreshAccessTokenError"
+        }
+
+      },
+      session: async ({ session, token }) => {
+        if (token) {
+          session.accessToken = token.accessToken || ""
+          session.user.profile = token.profile
+          session.error = token.error
+        }
+        return session
+      }
     }
 }
 

@@ -9,7 +9,7 @@ export interface BaseResponse<T={}, E={}> {
 export default async function fetcher<T, E>(
   input: RequestInfo,
   init?: RequestInit,
-): Promise<BaseResponse<T|E>> {
+): Promise<BaseResponse<T,E>> {
   try {
     const res = await fetch(input, init)
     if (res.ok) {
