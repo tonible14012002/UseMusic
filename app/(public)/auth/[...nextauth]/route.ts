@@ -27,17 +27,21 @@ export const authOptions: AuthOptions = {
             profile,
             accessToken: account?.access_token as string,
             refreshToken: account?.refresh_token as string, 
-            accessTokenExpires: Date.now() + (account?.expires_at as number)* 1000
-          } 
+            accessTokenExpires: account?.expires_at as number
+          }
+
         }
 
         if (Date.now() < (token.accessTokenExpires as number)) {
           // token still valid
+          console.log("valid token: ",Date.now() ,token.accessTokenExpires)
           return token
         }
 
+        console.log("expired, refetching...")
         // token expired
         const resp = await spotifyService.refreshAccessToken(token.refreshToken as string)
+        console.log(resp)
 
         if (resp.status === "ok") {
           const data: RefreshTokenResponse = resp.data

@@ -39,7 +39,7 @@ export const SpotifyPlayer = () => {
 
     return (
         <div>
-
+            
         </div>
     )
 }

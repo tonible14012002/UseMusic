@@ -1,6 +1,10 @@
 import { Client } from "@/lib/apis";
 import fetcher from "@/lib/fetcher";
-import { MusicGenes, RefreshTokenResponse } from "@/types/spotify";
+import { 
+    MusicGenes,
+    NewRelease,
+    RefreshTokenResponse,
+} from "@/types/spotify";
 
 class SpotifyServices extends Client {
     baseUrl = process.env.BASE_SPOTIFY_URL || ""
@@ -30,6 +34,7 @@ class SpotifyServices extends Client {
             }).toString()
 
         return fetcher<RefreshTokenResponse>(url, {
+            method: "POST",
             headers: {
                 ...this.getRefreshAuthHeader(),
             },
@@ -43,6 +48,18 @@ class SpotifyServices extends Client {
             }
         })
     }
+
+    public async getNewReleaseAllbums (token: string, limit: string = "20", offset: string = "0") {
+        return fetcher<NewRelease>(`${this.baseUrl}/browse/new-releases?
+            ${new URLSearchParams({limit, offset}).toString()}`, 
+        {
+            headers: {
+                ...this.getAuthHeader(token),
+                ...this.privateHeaders
+            },
+        })
+    }
+
 }
 
 const spotifyService = new SpotifyServices()

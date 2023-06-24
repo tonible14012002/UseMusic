@@ -6,8 +6,8 @@ import { authOptions } from "@/app/(public)/auth/[...nextauth]/route";
 export const AuthGuard = async ({children}: PropsWithChildren<any>) => {
 
     const session = await getServerSession(authOptions)
-
-    if (!session) {
+    // console.log(session)
+    if (!session || session.error) {
         return (
             <LoginRedirectPage/>
         )

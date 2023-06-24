@@ -4,9 +4,10 @@ import { useAuthSession } from "@/hooks/useAuthSession"
 
 export const TopTrack = () => {
 
-    const { data: session, status } = useAuthSession()
-    
+    const { session, status } = useAuthSession()
+
     if (status === "loading") return <div className="animte-pulse h-10 w-20 bg-secondary">
+
     </div>
 
     return (

@@ -9,14 +9,15 @@ import { Toggle } from "@/components/ui/toggle"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { SideBarSkeleton } from "./SideBarSkeleton"
 import { useAuthSession } from "@/hooks/useAuthSession"
+import Image from "next/legacy/image"
 
 export const SideBar = () => {
     
-    const { data: session, status } = useAuthSession()
+    const { session, status } = useAuthSession()
     if (status === "loading") return <SideBarSkeleton/>
 
     return (
-        <header className="fixed inset-y-0 left-0 flex w-16 flex-1 flex-col items-center gap-4 py-5">
+        <header className="fixed inset-y-0 left-0 flex w-16 flex-1 flex-col items-center gap-4 py-8">
             <ProfileAvattar
                 session={session}
             />
