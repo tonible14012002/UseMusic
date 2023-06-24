@@ -13,6 +13,8 @@ import { AuthGuard } from "@/components/auth/AuthGuard"
 import { config } from '@fortawesome/fontawesome-svg-core'
 import { Suspense } from "react"
 import { AuthGuardSkeleton } from "@/components/auth/AuthGuardSkeleton"
+import { TooltipProvider } from "@/context/tooltip"
+import { SideBar } from "@/components/common/SideBar"
 
 config.autoAddCss = false
 
@@ -49,15 +51,18 @@ export default function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="relative flex min-h-screen w-full flex-col">
-              <AuthProvider>
-                <Suspense fallback={<AuthGuardSkeleton/>}>
-                  <AuthGuard>
+          <TooltipProvider>
+            <Suspense fallback={<AuthGuardSkeleton/>}>
+              <AuthGuard>
+                <AuthProvider>
+                  <div className="relative flex min-h-screen w-full flex-col">
+                    <SideBar/>
                     {children}
-                  </AuthGuard>
-                </Suspense>
-              </AuthProvider>
-          </div>
+                  </div>
+                </AuthProvider>
+              </AuthGuard>
+            </Suspense>
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

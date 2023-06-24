@@ -1,14 +1,31 @@
 "use client"
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar"
-import { useSession } from "next-auth/react"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
+import { Session } from "next-auth"
 
-export const ProfileAvattar = () => {
+interface ProfileAvatarProps {
+    session: Session | null
+}
 
-    const { data: session, status } = useSession()
+export const ProfileAvattar = ({session}: ProfileAvatarProps) => {
+
+    const user = session?.user
+
     return (
-        <Avatar>
-            <AvatarImage/>
-            {/* <AvatarImage src={session?} /> */}
-        </Avatar>
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <Avatar>
+                    <AvatarImage
+                        src={user?.image ?? ""}
+                    />
+                    <AvatarFallback className="animate-pulse">
+                        NA
+                    </AvatarFallback>
+                </Avatar>
+            </TooltipTrigger>
+            <TooltipContent>
+                {user?.name}
+            </TooltipContent>
+        </Tooltip>
     )
 }

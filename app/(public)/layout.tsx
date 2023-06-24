@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/context/auth"
 import { config } from '@fortawesome/fontawesome-svg-core'
+import { TooltipProvider } from "@/context/tooltip"
 
 config.autoAddCss = false
 
@@ -46,11 +47,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="relative flex min-h-screen w-full flex-col">
-              <AuthProvider>
+            <AuthProvider>
+              <TooltipProvider>
+                <div className="relative flex min-h-screen w-full flex-col">
                   {children}
-              </AuthProvider>
-          </div>
+                </div>
+              </TooltipProvider>
+            </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

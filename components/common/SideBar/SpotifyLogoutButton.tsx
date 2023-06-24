@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
 import { PUBLIC_ROUTES } from "@/constants/routes"
 import { faSignOut } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -22,12 +23,19 @@ export const SpotifyLogoutButton = () => {
     }
 
     return (
-        <Button 
-            disabled={isLoading}
-            onClick={handleLogout}
-            variant={"ghost"}
-        >
-            <FontAwesomeIcon icon={faSignOut} />
-        </Button>
+        <Tooltip>
+            <TooltipTrigger>
+                <Button 
+                    disabled={isLoading}
+                    onClick={handleLogout}
+                    variant={"ghost"}
+                >
+                    <FontAwesomeIcon icon={faSignOut} />
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                Logout
+            </TooltipContent>
+        </Tooltip>
     )
 }

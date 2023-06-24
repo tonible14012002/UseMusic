@@ -6,17 +6,14 @@ export const AuthGuardSkeleton = () => {
 
     return (
         <div className="flex min-h-screen w-full flex-col items-center justify-center bg-background">
-            <div className="w-[400px] h-[200px] bg-slate-400">
-                {/* <Image
-                    height={200}
-                    width={400}
-                    layout="responsive"
-                    alt="authenticating"
-                    src="/imgs/Spotify_Logo_CMYK_Green.png"
-                /> */}
-            </div>
+            <Image
+                height={120}
+                width={400}
+                alt="authenticating"
+                src="/imgs/Spotify_Logo_CMYK_Green.png"
+            />
             <div className="flex items-center justify-center">
-                <span className="h-10 w-10 animate-spin">
+                <span className="h-fit w-fit animate-spin items-center">
                     <FontAwesomeIcon icon={faSpinner} />
                 </span>
             </div>

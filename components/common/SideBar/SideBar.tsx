@@ -1,32 +1,56 @@
 "use client"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { siteConfig } from "@/config/site"
-import { signOut } from "next-auth/react"
-import Link from "next/link"
-import { SpotifyLogoutButton } from "./SpotifyLogoutButton"
-import { Avatar } from "@/components/ui/avatar"
-import { AvatarImage } from "@radix-ui/react-avatar"
 
-const playerStatus = {
-    "PLAYING": "Playing", 
-    "PAUSED": "Paused"
-}
+import { ProfileAvattar } from "./ProfileAvatar"
+import { SpotifyLogoutButton } from "./SpotifyLogoutButton"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Button } from "@/components/ui/button"
+import { faHeart, faHome, faMusic, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { Toggle } from "@/components/ui/toggle"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { SideBarSkeleton } from "./SideBarSkeleton"
+import { useAuthSession } from "@/hooks/useAuthSession"
 
 export const SideBar = () => {
+    
+    const { data: session, status } = useAuthSession()
+    if (status === "loading") return <SideBarSkeleton/>
 
     return (
-        <header className="block !h-full bg-slate-400">
-            <Profile />
+        <header className="fixed inset-y-0 left-0 flex w-16 flex-1 flex-col items-center gap-4 py-5">
+            <ProfileAvattar
+                session={session}
+            />
+            <Button // Home button
+                variant="ghost"
+            >
+                <FontAwesomeIcon icon={faHome} />
+            </Button>
+
+            <Button // Search Button
+                variant="ghost"
+            >
+                <FontAwesomeIcon icon={faSearch}/>
+            </Button>
+
+            <Button // Search Button
+                variant="ghost"
+            >
+                <FontAwesomeIcon icon={faHeart}/>
+            </Button>
+
+            <div className="flex-1" />
+            <Tooltip>
+                <TooltipTrigger>
+                    <Toggle
+                    >
+                        <FontAwesomeIcon icon={faMusic} />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent>
+                    Show Player
+                </TooltipContent>
+            </Tooltip>
             <SpotifyLogoutButton/>
         </header>
-    )
-}
-
-const Profile = () => {
-
-    return (
-        <Avatar>
-            <AvatarImage src="" />
-        </Avatar>
     )
 }

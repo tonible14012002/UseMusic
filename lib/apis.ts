@@ -9,8 +9,6 @@ export class Client {
     ...this.headers,
   }
 
-  baseUrl: string = process.env.BASE_URL || ''
-
   public get formDataHeaders(): Headers {
     const cloned = Object.assign({}, this.privateHeaders)
     // Browsers will auto-set Content-Type and other things when formData is used
@@ -18,15 +16,9 @@ export class Client {
     delete cloned['Content-Type']
     return cloned
   }
-
-  public setAuthToken(token: string) {
-    this.privateHeaders = {
-      ...this.privateHeaders,
-      Authorization: `Bearer ${token}`,
+  public get urlEncodedDataHeaders():Headers {
+    return {
+      "Content-Type": "application/x-www-form-urlencoded"
     }
-  }
-
-  public clearAuthToken() {
-    this.privateHeaders = { ...this.headers }
   }
 }

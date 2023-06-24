@@ -1,23 +1,31 @@
 
-export default async function fetcher<JSON = any>(
+export interface BaseResponse<T={}, E={}> {
+  status: "ok" | "error"
+  statusCode?: number,
+  message?: string
+  data: T | E
+}
+
+export default async function fetcher<T, E>(
   input: RequestInfo,
   init?: RequestInit,
-): Promise<JSON> {
+): Promise<BaseResponse<T|E>> {
   try {
     const res = await fetch(input, init)
     if (res.ok) {
-      return await (res.json() as Promise<JSON>)
+      return ({
+        status: "ok",
+        statusCode: res.status,
+        data: await res.json() as T,
+        message: res.statusText
+      })
     }
 
-    const error: {
-      status: number, 
-      message: string, 
-      error: Response,
-      data?: Record<string, string>
-    } = {
+    const error: any = {
+      status: "error",
       message: res.statusText,
-      status: res.status,
-      error: res
+      statusCode: res.status,
+      data: {}
     }
 
     const isResponseJson = res.headers
@@ -28,13 +36,13 @@ export default async function fetcher<JSON = any>(
       let data
 
       try {
-        data = (await res.json()) as any
+        data = (await res.json()) as E
         error.data = data
       } catch (err: any) {
         error.message = err.message
       }
     }
-    return await Promise.reject(error)
+    return error
   } catch (error: any) {
     return await Promise.reject(error)
   }
