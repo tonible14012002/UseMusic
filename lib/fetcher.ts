@@ -1,15 +1,15 @@
 
-export interface BaseResponse<T={}, E={}> {
+export interface BaseResponse<T> {
   status: "ok" | "error"
   statusCode?: number,
   message?: string
-  data: T | E
+  data: T 
 }
 
-export default async function fetcher<T, E>(
+export default async function fetcher<T>(
   input: RequestInfo,
   init?: RequestInit,
-): Promise<BaseResponse<T,E>> {
+): Promise<BaseResponse<T>> {
   try {
     const res = await fetch(input, init)
     if (res.ok) {
@@ -36,7 +36,7 @@ export default async function fetcher<T, E>(
       let data
 
       try {
-        data = (await res.json()) as E
+        data = (await res.json()) as any
         error.data = data
       } catch (err: any) {
         error.message = err.message

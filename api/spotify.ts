@@ -9,16 +9,16 @@ class SpotifyServices extends Client {
     client_id = process.env.SPOTIFY_ID || ""
 
     getRefreshAuthHeader () {
-
         const basicEncoded = (Buffer.from(this.client_id+":"+this.client_secrect)).toString("base64")
         return {
-            Authorization: "Basic " + basicEncoded
+            Authorization: "Basic " + basicEncoded,
+            "Content-Type": "application/x-www-form-urlencoded"
         }
     }
 
     getAuthHeader (token: string) {
         return {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
         }
     }
     
@@ -27,18 +27,17 @@ class SpotifyServices extends Client {
             new URLSearchParams({
                 grant_type: "refresh_token",
                 refresh_token: refresh
-            })
-        
-        return fetcher<RefreshTokenResponse, any>(url, {
+            }).toString()
+
+        return fetcher<RefreshTokenResponse>(url, {
             headers: {
                 ...this.getRefreshAuthHeader(),
-                ...this.urlEncodedDataHeaders
             },
         })
     }
 
     public async getRecommendationGenes (token: string) {
-        return fetcher<MusicGenes, any>(`${this.baseUrl}/recommendations/available-genre-seeds`, {
+        return fetcher<MusicGenes>(`${this.baseUrl}/recommendations/available-genre-seeds`, {
             headers: {
                 ...this.getAuthHeader(token)
             }

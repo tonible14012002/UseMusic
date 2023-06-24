@@ -2,6 +2,7 @@
 
 import { buttonVariants } from "@/components/ui/button"
 import cx from "classnames"
+import { Fragment } from "react"
 
 export const SideBarSkeleton = () => {
 
@@ -22,5 +23,9 @@ export const SideBarSkeleton = () => {
 }
 
 const Repeat = ({Com, count}: {Com: JSX.Element, count: number}) => {
-    return Array(count).fill(null).map(()=>Com)
+    return Array(count).fill(null).map((_, index)=>(
+        <Fragment key={index}>
+            {Com}
+        </Fragment>
+    ))
 }
