@@ -24,6 +24,7 @@ export const HomeView = async () => {
             </h3>
             <div className="mt-10">
                 <Suspense fallback={<div>asd</div>}>
+                    { /* @ts-expect-error Server Component */ }
                     <NewRelease
 
                     />

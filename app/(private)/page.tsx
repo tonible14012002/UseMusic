@@ -10,5 +10,6 @@ interface HomePageProps {
 export default async function HomePage({
   searchParams
 }: HomePageProps) {
+  /* @ts-expect-error Server Component */
   return <HomeView />
 }
