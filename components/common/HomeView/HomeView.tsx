@@ -6,8 +6,13 @@ import { TopTrack } from "./TopTrack"
 import { NewReleaseAlbumList } from "./NewReleaseAlbumList"
 import { MusicPlayer } from "./MusicPlayer"
 import { NewReleaseSkeleton } from "./NewReleaseSkeleton"
+import { HomePageProps, HomePageSearchParam } from "@/app/(private)/page"
 
-export const HomeView = async () => {
+interface HomeViewProps {
+    params?: HomePageSearchParam
+}
+
+export const HomeView = async ({ params }:HomeViewProps) => {
 
     const session = await getServerSession(authOptions)
     const resp = await spotifyService.getRecommendationGenes(session?.accessToken ?? "")
@@ -29,7 +34,9 @@ export const HomeView = async () => {
                     <Suspense fallback={<NewReleaseSkeleton/>}>
                         <h3 className="mb-6 text-2xl font-medium">New-Release</h3>
                         { /* @ts-expect-error Server Component */ }
-                        <NewReleaseAlbumList/>
+                        <NewReleaseAlbumList 
+                            selectedAlbum={params?.album ?? ""}
+                        />
                     </Suspense>
                     <TopTrack/>
                 </div>

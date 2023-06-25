@@ -4,7 +4,11 @@ import { getServerSession } from "next-auth"
 import Image from "next/image"
 import { AlbumItem } from "./AlbumItem"
 
-export const NewReleaseAlbumList = async () => {
+interface NewReleaseAlbumListProps {
+    selectedAlbum: string
+}
+
+export const NewReleaseAlbumList = async ({selectedAlbum}:NewReleaseAlbumListProps) => {
 
     const session = await getServerSession(authOptions)
     const resp = await spotifyService.getNewReleaseAllbums(session?.accessToken??"")
@@ -17,11 +21,14 @@ export const NewReleaseAlbumList = async () => {
     const { albums } = resp.data
     const { items, limit, offset } = albums
 
-    console.log(items[0].images)
     return (
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 gap-8">
             {items.map((item, index) => (
-                <AlbumItem key={item.id} allbum={item}/>
+                <AlbumItem 
+                    key={item.id}
+                    album={item}
+                    isSelected={selectedAlbum===item.id}
+                />
             ))}
         </div>
     )
