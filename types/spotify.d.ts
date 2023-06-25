@@ -18,7 +18,7 @@ export interface NewRelease {
         offset: number
         previous: string | null
         total: number
-        items: Array<any>
+        items: Array<SimplifiedAlbum>
     }
 }
 

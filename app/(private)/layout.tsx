@@ -46,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <Script src="https://sdk.scdn.co/spotify-player.js" />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "flex min-h-screen max-w-[2000px] justify-center bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
@@ -56,7 +56,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               {/* @ts-expect-error Server Component */}
               <AuthGuard>
                 <AuthProvider>
-                  <div className="relative flex min-h-screen w-full flex-col">
+                  <div className="relative mx-auto flex min-h-screen w-full flex-col">
                     <SideBar/>
                     {children}
                   </div>

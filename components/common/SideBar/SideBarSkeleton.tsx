@@ -22,7 +22,7 @@ export const SideBarSkeleton = () => {
     )
 }
 
-const Repeat = ({renderer, count}: {renderer: () => JSX.Element, count: number}) => {
+export const Repeat = ({renderer, count}: {renderer: () => JSX.Element, count: number}) => {
     return (
         <>
             {Array(count).fill(null).map((_, index)=>(
