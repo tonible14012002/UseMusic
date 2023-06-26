@@ -1,5 +1,6 @@
 "use client"
-import { SimplifiedAlbum } from "@/types/spotify"
+import { joinArtists } from "@/lib/utils"
+import { SimplifiedAlbum } from "@/types/schema"
 import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Image from "next/image"
@@ -7,14 +8,15 @@ import { useParams, usePathname, useRouter, useSearchParams } from "next/navigat
 
 interface AlbumProps {
     album: SimplifiedAlbum
-    isSelected: boolean
 }
 
-export const AlbumItem = ({album, isSelected}: AlbumProps) => {
+export const AlbumItem = ({album}: AlbumProps) => {
 
     const { push } = useRouter()
     const searchParams = useSearchParams()
     const pathName = usePathname()
+    
+    const isSelected = searchParams.get("album") === album.id
 
     const handleClick = () =>  {
         const params = new URLSearchParams(Array.from(searchParams.entries()))
@@ -39,7 +41,7 @@ export const AlbumItem = ({album, isSelected}: AlbumProps) => {
                 />
             </div>
             <h3 className="text-md mt-4 truncate px-2 text-left font-semibold">{album.name}</h3>
-            <h3 className="mt-2 px-2 text-left text-xs opacity-70">{album.artists[0].name}</h3>
+            <h3 className="mt-2 px-2 text-left text-xs opacity-70">{joinArtists(album.artists)}</h3>
         </button>
     )
 }

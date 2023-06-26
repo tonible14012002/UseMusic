@@ -2,12 +2,11 @@ import spotifyService from "@/api/spotify"
 import { authOptions } from "@/app/(public)/auth/[...nextauth]/route"
 import { Suspense } from "react"
 import { getServerSession } from "next-auth"
-import { TopTrack } from "./TopTrack"
-import { NewReleaseAlbumList } from "./NewReleaseAlbumList"
-import { MusicPlayer } from "./MusicPlayer"
-import { NewReleaseSkeleton } from "./NewReleaseSkeleton"
-import { HomePageProps, HomePageSearchParam } from "@/app/(private)/page"
-
+import { NewReleaseSkeleton } from "../NewReleaseAlbums/NewReleaseSkeleton"
+import { NewReleaseAlbums } from "@/components/common/NewReleaseAlbums"
+import { HomePageSearchParam } from "@/app/(private)/page"
+import { MusicPlayer } from "@/components/common/MusicPlayer"
+import { UserLibrary } from "../UserLibrary"
 interface HomeViewProps {
     params?: HomePageSearchParam
 }
@@ -25,31 +24,18 @@ export const HomeView = async ({ params }:HomeViewProps) => {
 
     return (
     <div className="flex h-screen">
-        <div className="ml-16 grid h-full w-full grid-cols-[4fr_4fr_3fr]">
-            <div className="flex h-screen flex-col p-8">
-                <h3 className="max-w-[200px] text-4xl font-bold">
-                    Discover New Music
-                </h3>
-                <div className="mt-10 flex flex-1 flex-col overflow-y-auto">
-                    <Suspense fallback={<NewReleaseSkeleton/>}>
-                        <h3 className="mb-6 text-2xl font-medium">New-Release</h3>
-                        { /* @ts-expect-error Server Component */ }
-                        <NewReleaseAlbumList 
-                            selectedAlbum={params?.album ?? ""}
-                        />
-                    </Suspense>
-                    <TopTrack/>
-                </div>
-            </div>
-            <div // Player
+        <div className="ml-16 grid h-full w-full grid-cols-[400px_1fr]">
+            <UserLibrary/>
+            <Suspense fallback={<NewReleaseSkeleton/>}>
+            { /* @ts-expect-error Server Component */ }
+                <NewReleaseAlbums />
+            </Suspense>
+
+            {/* <div // Player
             >
                 <MusicPlayer/>
-            </div>
-            <div 
-                // tracks
-            >
-                asoidjaosjdoi
-            </div>
+            </div> */}
+            
         </div>
     </div>
     )

@@ -4,7 +4,8 @@ import {
     MusicGenes,
     NewRelease,
     RefreshTokenResponse,
-} from "@/types/spotify";
+    UserPlaylistsResponse,
+} from "@/types/schema";
 
 class SpotifyServices extends Client {
     baseUrl = process.env.BASE_SPOTIFY_URL || ""
@@ -58,6 +59,18 @@ class SpotifyServices extends Client {
                 ...this.privateHeaders
             },
         })
+    }
+
+    public async getUserPlaylists(token: string, user_id: string, limit: number = 20, offset: number = 0) {
+        return fetcher<UserPlaylistsResponse>(
+            `${this.baseUrl}/users/${user_id}/playlists`,
+            {
+                headers: {
+                    ...this.getAuthHeader(token),
+                    ...this.privateHeaders
+                }
+            }
+        )
     }
 
 }

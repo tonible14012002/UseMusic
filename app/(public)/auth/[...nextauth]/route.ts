@@ -1,6 +1,6 @@
 import spotifyService from "@/api/spotify"
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/constants/routes"
-import { RefreshTokenResponse } from "@/types/spotify"
+import { RefreshTokenResponse } from "@/types/schema"
 import { AuthOptions } from "next-auth"
 import NextAuth from "next-auth/next"
 import SpotifyProvider from "next-auth/providers/spotify"
