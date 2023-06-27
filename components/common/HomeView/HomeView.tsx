@@ -5,8 +5,7 @@ import { getServerSession } from "next-auth"
 import { NewReleaseSkeleton } from "../NewReleaseAlbums/NewReleaseSkeleton"
 import { NewReleaseAlbums } from "@/components/common/NewReleaseAlbums"
 import { HomePageSearchParam } from "@/app/(private)/page"
-import { MusicPlayer } from "@/components/common/MusicPlayer"
-import { UserLibrary } from "../UserLibrary"
+
 interface HomeViewProps {
     params?: HomePageSearchParam
 }
@@ -23,21 +22,10 @@ export const HomeView = async ({ params }:HomeViewProps) => {
     }
 
     return (
-    <div className="flex h-screen">
-        <div className="ml-16 grid h-full w-full grid-cols-[400px_1fr]">
-            <UserLibrary/>
-            <Suspense fallback={<NewReleaseSkeleton/>}>
-            { /* @ts-expect-error Server Component */ }
-                <NewReleaseAlbums />
-            </Suspense>
-
-            {/* <div // Player
-            >
-                <MusicPlayer/>
-            </div> */}
-            
-        </div>
-    </div>
+        <Suspense fallback={<NewReleaseSkeleton/>}>
+        { /* @ts-expect-error Server Component */ }
+            <NewReleaseAlbums />
+        </Suspense>
     )
 }
 

@@ -4,6 +4,7 @@ import { DynamicSsgRoute } from "next/dist/build"
 export interface HomePageSearchParam {
     [key: string]: string | string[] | undefined 
     album?: string
+    user_items?: string
 }
 export interface HomePageProps {
   searchParams?: HomePageSearchParam

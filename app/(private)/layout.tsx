@@ -15,6 +15,7 @@ import { Suspense } from "react"
 import { AuthGuardSkeleton } from "@/components/auth/AuthGuardSkeleton"
 import { TooltipProvider } from "@/context/tooltip"
 import { SideBar } from "@/components/common/SideBar"
+import { UserLibrary } from "@/components/common/UserLibrary"
 
 config.autoAddCss = false
 
@@ -58,7 +59,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <AuthProvider>
                   <div className="relative mx-auto flex min-h-screen w-full flex-col">
                     <SideBar/>
-                    {children}
+                    <div className="flex h-screen">
+                      <div className="ml-16 grid h-full w-full grid-cols-[400px_1fr]">
+                        <UserLibrary/>
+                        {children}
+                      </div>
+                    </div>
                   </div>
                 </AuthProvider>
               </AuthGuard>

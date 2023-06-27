@@ -1,7 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSearch } from "@fortawesome/free-solid-svg-icons"
-import { buttonVariants } from "@/components/ui/button"
-import cx from "classnames"
 import { SearchInput } from "./SearchInput"
 import { UserPlaylistsResponse } from "@/types/schema"
 import { PlaylistRowItem } from "../PlaylistRowItem"

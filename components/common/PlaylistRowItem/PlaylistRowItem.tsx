@@ -28,7 +28,7 @@ export const PlaylistRowItem = ({playlist}: PlaylistRowItemProps) => {
                         {playlist.name}
                     </h3>
                     <p className="truncate text-xs opacity-70">
-                        {playlist.owner.display_name}
+                        {playlist.type} . {playlist.owner.display_name}
                     </p>
                 </div>
                 {playlist.tracks !== null && (
