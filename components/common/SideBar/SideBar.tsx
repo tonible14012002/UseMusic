@@ -3,13 +3,15 @@
 import { ProfileAvattar } from "./ProfileAvatar"
 import { SpotifyLogoutButton } from "./SpotifyLogoutButton"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { faHeart, faHome, faMusic, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { Toggle } from "@/components/ui/toggle"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { SideBarSkeleton } from "./SideBarSkeleton"
 import { useAuthSession } from "@/hooks/useAuthSession"
 import Image from "next/legacy/image"
+import Link from "next/link"
+import { PRIVATE_ROUTES } from "@/constants/routes"
 
 export const SideBar = () => {
     
@@ -21,11 +23,11 @@ export const SideBar = () => {
             <ProfileAvattar
                 session={session}
             />
-            <Button // Home button
-                variant="ghost"
+            <Link className={buttonVariants({variant: "ghost"})} // Home button
+                href={PRIVATE_ROUTES.HOME}
             >
                 <FontAwesomeIcon icon={faHome} />
-            </Button>
+            </Link>
 
             <Button // Search Button
                 variant="ghost"

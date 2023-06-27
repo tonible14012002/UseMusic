@@ -20,7 +20,7 @@ const nextConfig = {
         pathname: '*',
       },
     ],
-    domains: ['i.scdn.co']
+    domains: ['i.scdn.co', 'mosaic.scdn.co']
   },
 }
 

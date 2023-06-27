@@ -2,21 +2,29 @@
 
 import { SimplifiedPlaylist } from "@/types/schema"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-
-interface PlaylistRowItemProps {
+import cx from "classnames"
+import { ButtonHTMLAttributes } from "react"
+interface PlaylistRowItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     playlist: SimplifiedPlaylist
+    isSelected: boolean
 }
 
-export const PlaylistRowItem = ({playlist}: PlaylistRowItemProps) => {
+export const PlaylistRowItem = ({playlist, isSelected, ...props}: PlaylistRowItemProps) => {
 
-    console.log(playlist)
     return (
-        <div className="rounded-md p-2 transition-all hover:bg-secondary">
-            <button className="flex h-12 w-full items-center text-left ">
+        <button className={cx(
+                "block w-full rounded-md p-2 transition-all hover:bg-secondary hover:opacity-80",{
+                    isSelected: "bg-secondary"
+                }
+            )}
+            {...props}
+        >
+            <div className="flex h-12 w-full items-center text-left"
+            >
                 <Avatar className="h-12 w-12 rounded-md">
                         <AvatarImage
                             className=""
-                            src={playlist.images[0].url}
+                            src={playlist.images?.[0]?.url || ""}
                             sizes="lg"
                         />
                         <AvatarFallback className="animate-pulse rounded-md">
@@ -36,7 +44,7 @@ export const PlaylistRowItem = ({playlist}: PlaylistRowItemProps) => {
                         {playlist.tracks?.total} tracks
                     </span>
                 )}
-            </button>
-        </div>
+            </div>
+        </button>
     )
 }

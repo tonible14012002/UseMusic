@@ -1,8 +1,7 @@
 import { HomeView } from "@/components/common/HomeView/HomeView"
-import { DynamicSsgRoute } from "next/dist/build"
+import { BaseSearchParam } from "@/types/schema"
 
-export interface HomePageSearchParam {
-    [key: string]: string | string[] | undefined 
+export interface HomePageSearchParam extends BaseSearchParam{
     album?: string
     user_items?: string
 }

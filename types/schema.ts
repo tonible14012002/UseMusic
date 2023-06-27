@@ -1,3 +1,7 @@
+export interface BaseSearchParam<> {
+    [key: string]: string | string[] | undefined 
+}
+
 export interface SpotifyImage {
     url: string
     height: number
@@ -101,4 +105,116 @@ export interface User {
     type: "user"
     uri: string
     display_name: string | null
+}
+
+export interface Playlist {
+    id: string
+    collaborative: boolean
+    description: string | null
+    external_urls: {
+        [key: string]: string
+    }
+    followers: {total: number}
+    href: string
+    images: Array<SpotifyImage>
+    name: string
+    owner: {
+        external_urls: {[key:string]: string}
+        followers: {total: number}
+        href: string
+        id: string
+        type: "user"
+        uri: string
+        display_name: string | null
+    }
+    public: boolean
+    tracks: {
+        href: string
+        limit: number
+        offset: number
+        next: string
+        previous: string
+        total: number
+        items: Array<PlaylistItem>
+    }
+    type: "playlist"
+    uri: string
+}
+
+
+interface PlaylistItem {
+    added_at: string
+    track: TrackObject | EpisodeObject
+}
+
+interface TrackObject {
+    album: SimplifiedAlbum
+    artists: Array<any>
+    available_markets: string[]
+    duration_ms: number
+    explicit: boolean
+    href: string
+    id: string
+    is_playable: boolean
+    retriction: any
+    name: string
+    popularity: number
+    preview_url: string
+    track_number: number
+    type: "track"
+    uri: string
+    is_local: boolean
+}
+
+interface EpisodeObject {
+    audio_preview_url: string | null
+    description: string
+    html_description: string
+    duration_ms: number
+    explicit: boolean
+    external_urls: { spotify: string}
+    href: string
+    id: string
+    images: Array<SpotifyImage>
+    is_playable: boolean
+    name: string
+    release_date: string
+    resume_point: {
+        fully_played: boolean
+        resume_point_ms: number
+    }
+    type: "episode"
+    uri: string
+    restriction: any
+    show: {
+        available_markets: string[]
+        copyrights: Array<CopyRightObject>
+        description: string
+        html_description: string
+        explicit: boolean
+        href: string
+        id: string
+        images: Array<SpotifyImage>
+        media_type: string
+        name: "show" 
+        uri: string
+        total_episodes: number
+    }
+}
+
+interface CopyRightObject {
+    text: string
+    type: string
+}
+
+interface Artist {
+    followers: {total :number}
+    generes: string[]
+    href: string
+    id: string
+    images: Array<SpotifyImage>
+    name: string
+    popularity: number
+    type: "artist"
+    uri: string
 }

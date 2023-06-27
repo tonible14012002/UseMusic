@@ -3,15 +3,16 @@ import fetcher from "@/lib/fetcher";
 import { 
     MusicGenes,
     NewRelease,
+    Playlist,
     RefreshTokenResponse,
     UserPlaylistsResponse,
 } from "@/types/schema";
 
 class SpotifyServices extends Client {
-    baseUrl = process.env.BASE_SPOTIFY_URL || ""
-    authUrl = process.env.SPOTIFY_AUTH_URL || ""
-    client_secrect = process.env.SPOTIFY_SECRET || ""
-    client_id = process.env.SPOTIFY_ID || ""
+    baseUrl = process.env.BASE_SPOTIFY_URL || "https://api.spotify.com/v1"
+    authUrl = process.env.SPOTIFY_AUTH_URL || "http://localhost:3000/auth"
+    client_secrect = process.env.SPOTIFY_SECRET || "79e66d37c7e341fda8b895883b01b0c5"
+    client_id = process.env.SPOTIFY_ID || process.env.NEXT_PUBLIC_SPOTIFY_ID
 
     getRefreshAuthHeader () {
         const basicEncoded = (Buffer.from(this.client_id+":"+this.client_secrect)).toString("base64")
@@ -61,9 +62,9 @@ class SpotifyServices extends Client {
         })
     }
 
-    public async getUserPlaylists(token: string, user_id: string, limit: number = 20, offset: number = 0) {
+    public async getUserPlaylists(token: string, userId: string, limit: number = 20, offset: number = 0) {
         return fetcher<UserPlaylistsResponse>(
-            `${this.baseUrl}/users/${user_id}/playlists`,
+            `${this.baseUrl}/users/${userId}/playlists`,
             {
                 headers: {
                     ...this.getAuthHeader(token),
@@ -73,6 +74,16 @@ class SpotifyServices extends Client {
         )
     }
 
+    public async getPlaylistDetail(token: string, playlistId: string) {
+        return fetcher<Playlist>(
+            `${this.baseUrl}/playlists/${playlistId}`, {
+                headers: {
+                    ...this.getAuthHeader(token),
+                    ...this.privateHeaders
+                }
+            }
+        )
+    }
 }
 
 const spotifyService = new SpotifyServices()

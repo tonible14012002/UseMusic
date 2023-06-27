@@ -61,6 +61,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     <SideBar/>
                     <div className="flex h-screen">
                       <div className="ml-16 grid h-full w-full grid-cols-[400px_1fr]">
+                        {/* @ts-expect-error Server Component */}
                         <UserLibrary/>
                         {children}
                       </div>

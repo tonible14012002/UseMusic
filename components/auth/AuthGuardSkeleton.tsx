@@ -11,6 +11,7 @@ export const AuthGuardSkeleton = () => {
                 width={400}
                 alt="authenticating"
                 src="/imgs/Spotify_Logo_CMYK_Green.png"
+                sizes="(max-width: 100px), 100px, 100px"
             />
             <div className="flex items-center justify-center">
                 <span className="h-fit w-fit animate-spin items-center">

@@ -27,7 +27,6 @@ export const NewReleaseAlbums = async ({}:NewReleaseAlbumsProps) => {
             </h3>
             <div className="mt-6 flex flex-1 flex-col overflow-y-auto">
                 <h3 className="mb-4 text-xl font-medium">New-Release</h3>
-                    { /* @ts-expect-error Server Component */ }
                 <div className="grid grid-cols-4 gap-8">
                 {items.map((item, index) => (
                     <AlbumItem 

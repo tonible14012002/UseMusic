@@ -3,15 +3,16 @@
 import React, { LegacyRef, useEffect, useState } from "react"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useDebounce } from "@dwarvesf/react-hooks"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { SEARCH_PARAM_KEYS } from "@/constants/enum"
+import { useDebounce } from "@/hooks/useDebounce"
 
 export const SearchInput = React.forwardRef(
     (props, ref: LegacyRef<HTMLInputElement>) => {
     
     const [ value, setValue ] = useState<string>("")
     const debouncedValue = useDebounce(value, 400)
+
     const pathName = usePathname()
     const { push } = useRouter()
     const searchParams = useSearchParams()
