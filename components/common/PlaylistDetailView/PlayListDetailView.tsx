@@ -3,7 +3,7 @@ import { authOptions } from "@/app/(public)/auth/[...nextauth]/route"
 import { LoginRedirectPage } from "@/components/auth/LoginRedirectPage"
 import { getServerSession } from "next-auth"
 import Image from "next/image"
-
+import { PlaylistDetailHeader } from "./PlaylistDetailHeader"
 
 interface PlaylistDetailView {
     id: string
@@ -18,14 +18,11 @@ export const PlaylistDetailView = async ({id}: PlaylistDetailView) => {
         session?.accessToken as string,
         id
     )
-
     return (
-        <div className="flex h-screen flex-col p-8">
-            <h3 className="text-2xl font-bold">
-                Discover New Music
-            </h3>
-            <div className="mt-6 flex flex-1 flex-col overflow-y-auto">
-                <div className="relative h-[200px] w-[200px]">
+        <div className={`flex h-screen flex-col p-8`}>
+            <PlaylistDetailHeader/>
+            <div className="mt-8 flex">
+                <div className="relative h-[240px] w-[240px]">
                     <Image
                         alt={playlist.name}
                         src={playlist.images?.[0]?.url ?? ""}
@@ -33,7 +30,14 @@ export const PlaylistDetailView = async ({id}: PlaylistDetailView) => {
                         sizes=""
                     />
                 </div>
-                {playlist.name}
+                <div className="flex flex-1 flex-col justify-end px-8">
+                    <h3 className="text-7xl font-bold">
+                        {playlist.name}
+                    </h3>
+                    <p className="mt-4 text-sm font-semibold">
+                        {playlist.owner.display_name} . {playlist.tracks.total} songs
+                    </p>
+                </div>
             </div>
         </div>
     )

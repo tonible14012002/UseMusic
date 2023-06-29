@@ -7,6 +7,7 @@ import {
     RefreshTokenResponse,
     UserPlaylistsResponse,
 } from "@/types/schema";
+import { cache } from "react";
 
 class SpotifyServices extends Client {
     baseUrl = process.env.BASE_SPOTIFY_URL || "https://api.spotify.com/v1"

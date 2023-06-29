@@ -38,7 +38,7 @@ export const AlbumItem = ({album}: AlbumProps) => {
                     alt={album.name}
                     fill
                     src={album.images[0].url}
-                    sizes="(max-width: 100px), 100px, 100px"
+                    sizes={`(max-width: 100px), ${album.images[0].width}px, ${album.images[0].height}px`}
                 />
             </div>
             <h3 className="text-md mt-4 truncate px-2 text-left font-semibold">{album.name}</h3>

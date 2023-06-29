@@ -10,7 +10,7 @@ export const NewReleaseSkeleton = () => {
             </h3>
             <div className="mt-10 flex flex-1 flex-col overflow-y-auto">
                 <h3 className="mb-6 w-fit animate-pulse rounded-md bg-secondary text-2xl font-medium text-transparent">New-Release</h3>
-                <div className="grid grid-cols-3 gap-8">
+                <div className="grid grid-cols-4 gap-8">
                     <Repeat
                         count={10}
                         renderer={()=>(
