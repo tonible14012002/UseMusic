@@ -1,4 +1,4 @@
-import { HomeView } from "@/components/common/HomeView/HomeView"
+import { HomeView } from "@/components/browse/HomeView"
 import { BaseSearchParam } from "@/types/schema"
 
 export interface HomePageSearchParam extends BaseSearchParam{

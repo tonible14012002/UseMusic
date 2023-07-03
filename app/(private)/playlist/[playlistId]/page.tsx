@@ -1,4 +1,4 @@
-import { PlaylistDetailView } from "@/components/common/PlaylistDetailView";
+import { PlaylistDetailView } from "@/components/playlist/PlaylistDetailView";
 
 interface PlaylistDetailPageProps {
     params: {

@@ -1,5 +1,5 @@
 "use client"
-import { Repeat } from "../SideBar/SideBarSkeleton"
+import { Repeat } from "../../common/SideBar/SideBarSkeleton"
 
 export const NewReleaseSkeleton = () => {
 

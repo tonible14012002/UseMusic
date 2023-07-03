@@ -3,7 +3,7 @@ import { authOptions } from "@/app/(public)/auth/[...nextauth]/route"
 import { Suspense } from "react"
 import { getServerSession } from "next-auth"
 import { NewReleaseSkeleton } from "../NewReleaseAlbums/NewReleaseSkeleton"
-import { NewReleaseAlbums } from "@/components/common/NewReleaseAlbums"
+import { NewReleaseAlbums } from "@/components/browse/NewReleaseAlbums"
 import { HomePageSearchParam } from "@/app/(private)/page"
 
 interface HomeViewProps {
