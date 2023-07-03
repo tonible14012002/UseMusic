@@ -21,13 +21,13 @@ export const NewReleaseAlbums = async ({}:NewReleaseAlbumsProps) => {
     const { items, limit, offset } = albums
 
     return (
-        <div className="flex h-screen flex-col p-8">
+        <div className="flex h-screen flex-col px-8 py-4">
             <h3 className="max-w-[200px] text-4xl font-bold">
                 Discover New Music
             </h3>
             <div className="mt-6 flex flex-1 flex-col overflow-y-auto">
                 <h3 className="mb-4 text-xl font-medium">New-Release</h3>
-                <div className="grid grid-cols-4 gap-8">
+                <div className="grid grid-cols-5 gap-8">
                 {items.map((item, index) => (
                     <AlbumItem 
                         key={item.id}

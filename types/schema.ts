@@ -218,3 +218,12 @@ interface Artist {
     type: "artist"
     uri: string
 }
+
+interface PlaylistItemsResponse {
+    limit: number
+    next: string
+    previous: string
+    offset: number
+    total: number
+    items: Array<PlaylistItem>
+}

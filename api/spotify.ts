@@ -85,6 +85,17 @@ class SpotifyServices extends Client {
             }
         )
     }
+
+    public async getPlaylistTracks(token: string, playlistId: string) {
+        return fetcher<any>(
+            `${this.baseUrl}/playlists/${playlistId}/tracks`, {
+                headers: {
+                    ...this.getAuthHeader(token),
+                    ...this.privateHeaders
+                }
+            }
+        )
+    }
 }
 
 const spotifyService = new SpotifyServices()

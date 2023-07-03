@@ -27,7 +27,6 @@ export const SearchDrawer = () => {
     }
 
     const { items } = libraries
-    console.log({selectedId})
 
     return (
         <>
@@ -37,12 +36,13 @@ export const SearchDrawer = () => {
 
             <ul className="px-2 py-4">
                 {items?.map(item => (
-                    <Link href={PRIVATE_ROUTES.PLAYLIST_DETAIL(item.id)}>
+                    <Link href={PRIVATE_ROUTES.PLAYLIST_DETAIL(item.id)}
+                        key={item.id}
+                    >
                         <PlaylistRowItem
                             onClick={(e) => {
                                 setSelectedId(item.id)
                             }}
-                            key={item.id}
                             playlist={item}
                             isSelected={item.id === selectedId}
                         />

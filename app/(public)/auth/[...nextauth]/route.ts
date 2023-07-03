@@ -4,6 +4,8 @@ import { RefreshTokenResponse } from "@/types/schema"
 import { AuthOptions } from "next-auth"
 import NextAuth from "next-auth/next"
 import SpotifyProvider from "next-auth/providers/spotify"
+import LoginLayout from "../../login/layout"
+import { Client } from "@/lib/apis"
 
 export const authOptions: AuthOptions = {
     providers: [

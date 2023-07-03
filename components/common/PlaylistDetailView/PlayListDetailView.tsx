@@ -3,6 +3,11 @@ import { authOptions } from "@/app/(public)/auth/[...nextauth]/route"
 import { LoginRedirectPage } from "@/components/auth/LoginRedirectPage"
 import { getServerSession } from "next-auth"
 import Image from "next/image"
+import { PlaylistDetailWrapper } from "./PLaylistDetailWrapper"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faClock, faEllipsis, faHeart, faPlay } from "@fortawesome/free-solid-svg-icons"
+import { Button } from "@/components/ui/button"
+import { PlaylistDetailBanner } from "./PlaylistDetailBanner"
 import { PlaylistDetailHeader } from "./PlaylistDetailHeader"
 
 interface PlaylistDetailView {
@@ -19,26 +24,32 @@ export const PlaylistDetailView = async ({id}: PlaylistDetailView) => {
         id
     )
     return (
-        <div className={`flex h-screen flex-col p-8`}>
+        <PlaylistDetailWrapper playlist={playlist}>
             <PlaylistDetailHeader/>
-            <div className="mt-8 flex">
-                <div className="relative h-[240px] w-[240px]">
-                    <Image
-                        alt={playlist.name}
-                        src={playlist.images?.[0]?.url ?? ""}
-                        fill
-                        sizes=""
-                    />
-                </div>
-                <div className="flex flex-1 flex-col justify-end px-8">
-                    <h3 className="text-7xl font-bold">
-                        {playlist.name}
-                    </h3>
-                    <p className="mt-4 text-sm font-semibold">
-                        {playlist.owner.display_name} . {playlist.tracks.total} songs
-                    </p>
-                </div>
+            <PlaylistDetailBanner />
+            <div className="mt-4 flex items-center gap-4 px-8 py-4">
+                <Button variant="ghost" className="h-14 w-14 rounded-full bg-emerald-900 text-2xl text-emerald-500 transition active:scale-90">
+                    <FontAwesomeIcon icon={faPlay} />
+                </Button>
+                <Button variant="ghost" className="h-12 w-12 rounded-full text-2xl text-emerald-500 transition active:scale-90">
+                    <FontAwesomeIcon icon={faHeart} />
+                </Button>
+                <Button variant="ghost" className="h-12 w-12 rounded-full text-2xl transition active:scale-90">
+                    <FontAwesomeIcon icon={faEllipsis} />
+                </Button>
             </div>
-        </div>
+            <div className="px-8">
+                <div className="grid grid-cols-[50px_4fr_3fr_3fr_100px_100px] border-b py-4 text-sm font-semibold opacity-70 sticky top-16">
+                    <div className="text-center">#</div>
+                    <div className="text-left">Title</div>
+                    <div>Album</div>
+                    <div>Date added</div>
+                    <div className="text-right">
+                        <FontAwesomeIcon icon={faClock} />
+                    </div>
+                </div>
+                <div className="h-[2000px]"></div>
+            </div>
+        </PlaylistDetailWrapper>
     )
 }

@@ -5,7 +5,7 @@ export const UserLibrary = async () => {
 
     console.log("Render User LIBRARAY")
     return (
-        <div className="flex h-screen flex-col border-r py-8">
+        <div className="flex h-screen flex-col border-r py-4">
             <h3 className="max-w-[200px] px-4 text-2xl font-bold">
                 Your Library
             </h3>

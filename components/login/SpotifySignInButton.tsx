@@ -27,7 +27,7 @@ export const SpotifSignInButton = () => {
                 height={166}
                 width={400}
                 src="/imgs/Spotify_Logo_CMYK_Green.png"
-                sizes="(max-width: 100px), 100px, 100px"
+                sizes=""
 
             />
         </Button>

@@ -29,6 +29,7 @@ export const CategorySlider = async () => {
                     className="!h-8 rounded-xl"
                     variant="outline"
                     size="sm"
+                    key={item}
                 >
                     temp
                 </Button>
