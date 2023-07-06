@@ -142,14 +142,14 @@ export interface Playlist {
 }
 
 
-interface PlaylistItem {
+export interface PlaylistItem {
     added_at: string
     track: TrackObject | EpisodeObject
 }
 
-interface TrackObject {
+export interface TrackObject {
     album: SimplifiedAlbum
-    artists: Array<any>
+    artists: Array<Artist>
     available_markets: string[]
     duration_ms: number
     explicit: boolean
@@ -166,7 +166,7 @@ interface TrackObject {
     is_local: boolean
 }
 
-interface EpisodeObject {
+export interface EpisodeObject {
     audio_preview_url: string | null
     description: string
     html_description: string
@@ -202,12 +202,12 @@ interface EpisodeObject {
     }
 }
 
-interface CopyRightObject {
+export interface CopyRightObject {
     text: string
     type: string
 }
 
-interface Artist {
+export interface Artist {
     followers: {total :number}
     generes: string[]
     href: string
@@ -219,7 +219,7 @@ interface Artist {
     uri: string
 }
 
-interface PlaylistItemsResponse {
+export interface PlaylistItemsResponse {
     limit: number
     next: string
     previous: string

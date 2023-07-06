@@ -47,7 +47,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <Script src="https://sdk.scdn.co/spotify-player.js" />
       <body
         className={cn(
-          "flex min-h-screen max-w-[2000px] justify-center bg-background font-sans antialiased",
+          "m-auto flex min-h-screen max-w-[2000px] justify-center bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
@@ -60,7 +60,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   <div className="relative mx-auto flex min-h-screen w-full flex-col">
                     <SideBar/>
                     <div className="flex h-screen">
-                      <div className="ml-16 grid h-full w-full grid-cols-[400px_1fr]">
+                      <div className="ml-16 grid h-full w-full grid-cols-[360px_1fr]">
                         {/* @ts-expect-error Server Component */}
                         <UserLibrary/>
                         {children}

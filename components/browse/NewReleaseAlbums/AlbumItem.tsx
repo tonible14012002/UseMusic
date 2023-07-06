@@ -41,7 +41,7 @@ export const AlbumItem = ({album}: AlbumProps) => {
                     sizes={`(max-width: 100px), ${album.images[0].width}px, ${album.images[0].height}px`}
                 />
             </div>
-            <h3 className="mt-2 max-w-full overflow-hidden truncate px-2 text-left text-sm font-semibold">{album.name}</h3>
+            <h3 className="mt-2 max-w-full truncate px-2 text-left text-sm font-semibold">{album.name}</h3>
             <h3 className="mt-1 px-2 text-left text-xs opacity-70">{joinArtists(album.artists)}</h3>
         </button>
     )

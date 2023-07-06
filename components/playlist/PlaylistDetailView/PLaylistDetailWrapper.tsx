@@ -2,7 +2,6 @@
 
 import { PropsWithChildren, createContext, useContext, useRef, useState } from "react"
 import { Playlist } from "@/types/schema"
-import { PLAYLIST_HEADER_HEIGHT } from "@/constants/config"
 
 interface PlayListDetailWrapperProps extends PropsWithChildren {
     playlist: Playlist
@@ -39,7 +38,6 @@ export const PlaylistDetailWrapper = ({ playlist, children }: PlayListDetailWrap
             else {
                 setHeaderBgVisible(false)
             }
-
         }
     }
 

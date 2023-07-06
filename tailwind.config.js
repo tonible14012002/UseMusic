@@ -9,8 +9,17 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
+        'tablet': '640px',
+        'laptop': '1024px',
+        'desktop': '1480px',
         "2xl": "1400px",
-      },
+      }
+    },
+    screens: {
+      'tablet': '640px',
+      'laptop': '1200px',
+      'desktop': '1700px',
+      "2xl": "2000px",
     },
     extend: {
       colors: {

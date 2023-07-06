@@ -2,13 +2,13 @@ import spotifyService from "@/api/spotify"
 import { authOptions } from "@/app/(public)/auth/[...nextauth]/route"
 import { LoginRedirectPage } from "@/components/auth/LoginRedirectPage"
 import { getServerSession } from "next-auth"
-import Image from "next/image"
 import { PlaylistDetailWrapper } from "./PLaylistDetailWrapper"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClock, faEllipsis, faHeart, faPlay } from "@fortawesome/free-solid-svg-icons"
+import { faClock, faEllipsis, faHeart, faPlay, faSquareMinus } from "@fortawesome/free-solid-svg-icons"
 import { Button } from "@/components/ui/button"
 import { PlaylistDetailBanner } from "./PlaylistDetailBanner"
 import { PlaylistDetailHeader } from "./PlaylistDetailHeader"
+import { TrackRowItem } from "./TrackRowItem"
 
 interface PlaylistDetailView {
     id: string
@@ -38,17 +38,29 @@ export const PlaylistDetailView = async ({id}: PlaylistDetailView) => {
                     <FontAwesomeIcon icon={faEllipsis} />
                 </Button>
             </div>
-            <div className="px-8">
-                <div className="grid grid-cols-[50px_4fr_3fr_3fr_100px_100px] border-b py-4 text-sm font-semibold opacity-70 sticky top-16">
+            <div className="flex flex-col space-y-2 py-8">
+                <div className="sticky top-16 z-20 grid grid-cols-[50px_360px_300px_2fr_100px_100px] border-b bg-background px-8 py-2 text-sm font-semibold desktop:grid-cols-[50px_420px_400px_1fr_100px_100px]">
                     <div className="text-center">#</div>
                     <div className="text-left">Title</div>
                     <div>Album</div>
                     <div>Date added</div>
-                    <div className="text-right">
+                    <div className="px-4 text-right">
                         <FontAwesomeIcon icon={faClock} />
                     </div>
                 </div>
-                <div className="h-[2000px]"></div>
+                
+                {playlist.tracks.items.map((item, index) => {
+                    if (item.track.type === "track") {
+
+                    return (
+                        <TrackRowItem 
+                            key={String(item.track.id) + "track"}
+                            track={item.track}
+                            addedAt={item.added_at}
+                            order={index+1}
+                        />
+                    )} 
+                })}
             </div>
         </PlaylistDetailWrapper>
     )

@@ -24,16 +24,16 @@ export const PlaylistRowItem = ({playlist, isSelected, ...props}: PlaylistRowIte
             <div className="flex h-12 w-full items-center text-left"
             >
                 <Avatar className="h-12 w-12 rounded-md">
-                        <AvatarImage
-                            className=""
-                            src={playlist.images?.[0]?.url || ""}
-                            sizes="lg"
-                        />
-                        <AvatarFallback className="animate-pulse rounded-md">
-                            <div className="bg-secondary" />
-                        </AvatarFallback>
-                    </Avatar>
-                <div className="grow overflow-hidden px-2 pr-4">
+                    <AvatarImage
+                        className=""
+                        src={playlist.images?.[0]?.url || ""}
+                        sizes="lg"
+                    />
+                    <AvatarFallback className="animate-pulse rounded-md">
+                        <div className="bg-secondary" />
+                    </AvatarFallback>
+                </Avatar>
+                <div className="grow overflow-hidden px-4">
                     <h3 className="w-full truncate text-sm font-medium">
                         {playlist.name}
                     </h3>
@@ -42,7 +42,7 @@ export const PlaylistRowItem = ({playlist, isSelected, ...props}: PlaylistRowIte
                             {playlist.type}
                         </span>
                         <FontAwesomeIcon icon={faCircle} className="h-0.5 w-0.5" />
-                        <span>{playlist.owner.display_name}</span>
+                        <span className="truncate">{playlist.owner.display_name}</span>
                     </p>
                 </div>
                 {playlist.tracks !== null && (

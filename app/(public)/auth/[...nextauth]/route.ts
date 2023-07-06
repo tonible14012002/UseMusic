@@ -1,17 +1,25 @@
 import spotifyService from "@/api/spotify"
+import { NEXT_PUBLIC_NEXTAUTH_URL, SPOTIFY_AUTHORIZE_URL, SPOTIFY_AUTH_SCOPES, SPOTIFY_ID, SPOTIFY_SECRET } from "@/constants/config"
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/constants/routes"
 import { RefreshTokenResponse } from "@/types/schema"
 import { AuthOptions } from "next-auth"
 import NextAuth from "next-auth/next"
 import SpotifyProvider from "next-auth/providers/spotify"
-import LoginLayout from "../../login/layout"
-import { Client } from "@/lib/apis"
+
+const authQuery = new URLSearchParams({
+  client_id: SPOTIFY_ID,
+  response_type: "code",
+  direct_uri: `${NEXT_PUBLIC_NEXTAUTH_URL}/callback/spotify`,
+  scope: SPOTIFY_AUTH_SCOPES.join(" "),
+})
+const spotifyAuthEndPoint = `${SPOTIFY_AUTHORIZE_URL}?${authQuery.toString()}`
 
 export const authOptions: AuthOptions = {
     providers: [
         SpotifyProvider({
-            clientId: process.env.SPOTIFY_ID || "79e66d37c7e341fda8b895883b01b0c5",
-            clientSecret: process.env.SPOTIFY_SECRET || "d641e44ecbc8498d970824a1aa43cde1"
+            clientId: SPOTIFY_ID,
+            clientSecret: SPOTIFY_SECRET,
+            authorization: spotifyAuthEndPoint
         })
     ],
     pages: {
