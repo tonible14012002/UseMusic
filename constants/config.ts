@@ -41,3 +41,6 @@ export const SPOTIFY_AUTH_SCOPES = [
     "user-top-read",
     "user-read-recently-played",
 ]
+
+export const FACEBOOK_URL = "https://www.facebook.com/namanh.bui.549/"
+export const INSTAGRAM_URL = "https://www.instagram.com/14maroon/"

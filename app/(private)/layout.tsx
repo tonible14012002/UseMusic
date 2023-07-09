@@ -16,6 +16,7 @@ import { AuthGuardSkeleton } from "@/components/auth/AuthGuardSkeleton"
 import { TooltipProvider } from "@/context/tooltip"
 import { SideBar } from "@/components/common/SideBar"
 import { UserLibrary } from "@/components/common/UserLibrary"
+import { MusicPlayerBottom } from "@/components/MusicPLayerBottom/MusicPlayerBar"
 
 config.autoAddCss = false
 
@@ -65,6 +66,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
                         <UserLibrary/>
                         {children}
                       </div>
+                    </div>
+                    <div className="fixed bottom-0 z-50 h-20 w-full bg-background">
+                      <MusicPlayerBottom />
                     </div>
                   </div>
                 </AuthProvider>

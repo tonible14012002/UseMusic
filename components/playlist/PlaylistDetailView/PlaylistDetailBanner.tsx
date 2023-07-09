@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import { usePlaylistDetailContext } from "./PLaylistDetailWrapper"
 import { useEffect, useRef } from "react"
 import { ImageWithFallback } from "@/components/common/ui/ImageWithFallback"
@@ -9,16 +8,15 @@ import { faCircle } from "@fortawesome/free-solid-svg-icons"
 
 export const PlaylistDetailBanner = () => {
 
-    const { playlist, setPlaylistTitleRect } = usePlaylistDetailContext() ?? {}
+    const { playlist, setPlaylistTitleRef } = usePlaylistDetailContext() ?? {}
     const titleRef = useRef<HTMLParagraphElement>(null)
 
     useEffect(() => {
         const timerId = setTimeout(() => {
-            const boundary = titleRef.current?.getBoundingClientRect()
-            setPlaylistTitleRect(boundary as DOMRect)
+            setPlaylistTitleRef(titleRef.current)
         })
         return () => clearTimeout(timerId)
-    }, [setPlaylistTitleRect])
+    }, [setPlaylistTitleRef])
 
     return (
         <div className="flex px-8">

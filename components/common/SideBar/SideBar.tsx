@@ -28,7 +28,7 @@ export const SideBar = () => {
 
     if (status === "loading") return <SideBarSkeleton/>
     return (
-        <header className="fixed inset-y-0 left-0 flex w-16 flex-1 flex-col items-center gap-4 py-4">
+        <header className="fixed inset-y-0 left-0 flex w-16 flex-1 flex-col items-center gap-4 pb-24 pt-4">
             <Link href={PRIVATE_ROUTES.HOME}>
                 <ProfileAvattar
                     session={session}

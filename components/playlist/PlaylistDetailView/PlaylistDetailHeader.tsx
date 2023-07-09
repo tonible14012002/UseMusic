@@ -22,13 +22,11 @@ export const PlaylistDetailHeader = () => {
             <div className="flex h-16 items-center">
                 <Button size="sm"
                     className="rounded-full"
-                    // variant="outline"
                     onClick={() => router.back()}
                 >
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Button>
                 <Button size="sm"
-                    // variant="outline"
                     className="ml-3 rounded-full"
                     onClick={() => router.forward()}
                 >

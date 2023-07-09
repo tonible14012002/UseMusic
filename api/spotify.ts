@@ -6,6 +6,7 @@ import {
     NewRelease,
     Playlist,
     RefreshTokenResponse,
+    SavedAlbumResponse,
     UserPlaylistsResponse,
 } from "@/types/schema";
 import { cache } from "react";
@@ -100,7 +101,7 @@ class SpotifyServices extends Client {
     }
 
     public async getSavedAlbums(token: string, limit: number = 20, offset: number = 0) {
-        return fetcher<any>(
+        return fetcher<SavedAlbumResponse>(
             `${this.baseUrl}/me/albums?${
                 new URLSearchParams({limit: String(limit), offset: String(offset)}).toString()
             }`,

@@ -51,6 +51,7 @@ export interface SimplifiedAlbum {
     // present when getting an artist's album. 
     // Compare to album_type this field represents 
     // relationship between the artist and the album.
+    popularity: number
     album_group: string 
     artists: Array<SimplifiedArtist>
 }
@@ -227,3 +228,49 @@ export interface PlaylistItemsResponse {
     total: number
     items: Array<PlaylistItem>
 }
+
+export interface SavedAlbumResponse {
+    href: string
+    limit: number
+    offset: number
+    next: string
+    previous: string
+    total: number
+    items: Array<SavedAlbumObject>
+}
+
+export interface SavedAlbumObject {
+    added_at: string
+    album: {
+        tracks: {
+            href: string
+            limit: number
+            next: string
+            offset: number
+            previous: number
+            total: number
+            items: Array<SimplifiedTrack>
+        } 
+    } & SimplifiedAlbum
+}
+
+export interface SimplifiedTrack {
+    artists: Array<SimplifiedArtist>
+    available_markets: string[]
+    duration_ms: number
+    explicit: boolean
+    external_urls: Record<string, string>
+    href: string
+    id: string
+    is_playable: boolean
+    restrictions: {
+        reason: "market" | "product" | "explicit"
+    }
+    name: string
+    preview_url: string
+    track_number: number
+    type: "track"
+    uri: string
+    is_local: boolean
+}
+

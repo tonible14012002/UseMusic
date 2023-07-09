@@ -1,37 +1,40 @@
 "use client"
 
-import { PropsWithChildren, createContext, useContext, useRef, useState } from "react"
+import { PropsWithChildren, createContext, useContext, useState } from "react"
 import { Playlist } from "@/types/schema"
+import cx from "classnames"
 
 interface PlayListDetailWrapperProps extends PropsWithChildren {
     playlist: Playlist
+    className?: string
 }
 
 interface PlayListDetailContext {
     playlistTitleOffsetY?: number
     playlist?: Playlist
-    setPlaylistTitleRect: (rect: DOMRect) => void
+    setPlaylistTitleRef: (ref: HTMLHeadingElement|null) => void
     headerBgVisible: boolean
     
 }
 
 const PlaylistWrapperContext = createContext<PlayListDetailContext>({
-    setPlaylistTitleRect: () => {},
+    setPlaylistTitleRef: () => {},
     headerBgVisible: false
 })
+
 export const usePlaylistDetailContext = () => useContext(PlaylistWrapperContext)
 
-export const PlaylistDetailWrapper = ({ playlist, children }: PlayListDetailWrapperProps) => {
+export const PlaylistDetailWrapper = ({ playlist, children, className, ...props }: PlayListDetailWrapperProps) => {
 
-    const [ playlistTitleRect, setPlaylistTitleRect] = useState<DOMRect>()
+    const [ playlistTitleRef, setPlaylistTitleRef] = useState<HTMLHeadingElement|null>()
     const [ headerBgVisible, setHeaderBgVisible ] = useState<boolean>(false)
 
-    const handleScroll = (e: any) => {
-        const wrapper = e.target
+    const handleScroll = () => {
+        const playlistTitleRect = playlistTitleRef?.getBoundingClientRect() ?? undefined
         if (playlistTitleRect !== undefined) {
             const titleOffsetY = playlistTitleRect.y
 
-            if (wrapper.scrollTop > titleOffsetY) {
+            if (titleOffsetY < 0) {
                 // Header collide with the title => show background 
                 setHeaderBgVisible(true)
             }
@@ -42,12 +45,13 @@ export const PlaylistDetailWrapper = ({ playlist, children }: PlayListDetailWrap
     }
 
     return (
-        <div className="relative flex h-screen flex-col overflow-y-auto"
+        <div className={cx(className, "relative flex h-full flex-col overflow-y-auto")}
             onScroll={handleScroll}
+            {...props}
         >
             <PlaylistWrapperContext.Provider
                 value={{
-                    setPlaylistTitleRect,
+                    setPlaylistTitleRef,
                     headerBgVisible,
                     playlist
                 }}

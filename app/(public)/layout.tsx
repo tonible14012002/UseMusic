@@ -39,7 +39,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <Script src="https://sdk.scdn.co/spotify-player.js" />
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
